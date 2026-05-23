@@ -188,15 +188,18 @@ async function calculateEstimate() {
   const extraNotes = document.getElementById("extraNotes").value.trim();
   const constructionType = typeEl ? typeEl.dataset.value : "residential";
   const grade = gradeEl ? gradeEl.dataset.value : "economy";
-
+let customRateVal = 0;
+if(grade === "custom") {
+  customRateVal = parseFloat(document.getElementById("customRate").value) || 1800;
+}
   let areaSqft = parseFloat(document.getElementById("builtupArea").value)||0;
   if(currentUnit==="sqyd") areaSqft *= 9;
   if(currentUnit==="gunta") areaSqft *= 1089;
 
   const totalArea = areaSqft * floors;
-  const rate = rates[grade];
+ const rate = grade==="custom" ? {min:customRateVal*0.9,max:customRateVal*1.1,mid:customRateVal} : (rates[grade]||rates.economy);
   const mult = districtMultiplier[district]||1.0;
-  let baseCost = totalArea * rate.mid * mult;
+  let baseCost = totalArea*(grade==="custom"?customRateVal:rate.mid)*mult;
   let featureAddOn = 0;
   selectedFeatures.forEach(f => { featureAddOn += (featureCosts[f]||0)*100000; });
 
