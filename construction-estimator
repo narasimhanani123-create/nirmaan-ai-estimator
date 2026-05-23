@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="te">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>నిర్మాణ్ AI - Cost Estimator</title>
+  <link rel="manifest" href="manifest.json"/>
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <div id="splash">
+    <div class="splash-icon">🏗️</div>
+    <h1>నిర్మాణ్ AI</h1>
+    <p>మీ నమ్మకమైన నిర్మాణ సహాయకుడు</p>
+    <div class="splash-loader"></div>
+  </div>
+
+  <div id="app" class="hidden">
+
+    <header class="header">
+      <div class="header-left">
+        <span class="logo-icon">🏗️</span>
+        <div>
+          <h1 class="app-title">నిర్మాణ్ AI</h1>
+          <p class="app-sub">Cost Estimator</p>
+        </div>
+      </div>
+      <div class="header-right">
+        <button class="lang-btn" onclick="cycleLang()" title="Language">🌐</button>
+        <span class="lang-label" id="langLabel">తె</span>
+      </div>
+    </header>
+
+    <div class="progress-bar">
+      <div class="step active" id="step-dot-1">1</div>
+      <div class="step-line"></div>
+      <div class="step" id="step-dot-2">2</div>
+      <div class="step-line"></div>
+      <div class="step" id="step-dot-3">3</div>
+      <div class="step-line"></div>
+      <div class="step" id="step-dot-4">4</div>
+    </div>
+
+    <!-- STEP 1 -->
+    <section class="card" id="section-1">
+      <div class="card-header">
+        <span class="step-badge">Step 1</span>
+        <h2 class="card-title" data-te="ప్రాజెక్ట్ వివరాలు" data-en="Project Details" data-hi="प्रोजेक्ट विवरण">ప్రాజెక్ట్ వివరాలు</h2>
+      </div>
+
+      <div class="form-group">
+        <label data-te="యజమాని పేరు" data-en="Owner Name" data-hi="मालिक का नाम">యజమాని పేరు</label>
+        <input type="text" id="ownerName" placeholder="ఉదా: రాజేష్ రెడ్డి" />
+      </div>
+
+      <div class="form-group">
+        <label data-te="నిర్మాణ్ రకం" data-en="Construction Type" data-hi="निर्माण प्रकार">నిర్మాణ్ రకం</label>
+        <div class="chip-group" id="constructionType">
+          <button class="chip active"
+            data-value="residential"
+            data-te="🏠 ఇల్లు"
+            data-en="🏠 House"
+            data-hi="🏠 मकान"
+            onclick="selectChip(this,'constructionType')">🏠 ఇల్లు</button>
+          <button class="chip"
+            data-value="commercial"
+            data-te="🏢 వ్యాపారం"
+            data-en="🏢 Commercial"
+            data-hi="🏢 व्यापार"
+            onclick="selectChip(this,'constructionType')">🏢 వ్యాపారం</button>
+          <button class="chip"
+            data-value="renovation"
+            data-te="🔨 రెనోవేషన్"
+            data-en="🔨 Renovation"
+            data-hi="🔨 नवीनीकरण"
+            onclick="selectChip(this,'constructionType')">🔨 రెనోవేషన్</button>
+          <button class="chip"
+            data-value="compound"
+            data-te="🧱 కాంపౌండ్"
+            data-en="🧱 Compound"
+            data-hi="🧱 कंपाउंड"
+            onclick="selectChip(this,'constructionType')">🧱 కాంపౌండ్</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label data-te="నిర్మాణ్ Grade" data-en="Build Quality" data-hi="निर्माण ग्रेड">నిర్మాణ్ Grade</label>
+        <div class="grade-cards" id="buildGrade">
+          <div class="grade-card active" data-value="economy" onclick="selectGrade(this)">
+            <span class="grade-icon">🟢</span>
+            <span class="grade-name">Economy</span>
+            <span class="grade-price">₹1,400–1,800/sqft</span>
+          </div>
+          <div class="grade-card" data-value="standard" onclick="selectGrade(this)">
+            <span class="grade-icon">🔵</span>
+            <span class="grade-name">Standard</span>
+            <span class="grade-price">₹1,800–2,400/sqft</span>
+          </div>
+          <div class="grade-card" data-value="premium" onclick="selectGrade(this)">
+            <span class="grade-icon">🟡</span>
+            <span class="grade-name">Premium</span>
+            <span class="grade-price">₹2,400–3,200/sqft</span>
+          </div>
+          <div class="grade-card" data-value="luxury" onclick="selectGrade(this)">
+            <span class="grade-icon">🔴</span>
+            <span class="grade-name">Luxury</span>
+            <span class="grade-price">₹3,200–4,500/sqft</span>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn-next" onclick="goToStep(2)"
+        data-te="తదుపరి స్టెప్ →"
+        data-en="Next Step →"
+        data-hi="अगला चरण →">తదుపరి స్టెప్ →</button>
+    </section>
+
+    <!-- STEP 2 -->
+    <section class="card hidden" id="section-2">
+      <div class="card-header">
+        <span class="step-badge">Step 2</span>
+        <h2 class="card-title" data-te="కొలతలు" data-en="Measurements" data-hi="माप">కొలతలు</h2>
+      </div>
+
+      <div class="unit-toggle">
+        <button class="unit-btn active" id="btn-sqft" onclick="setUnit('sqft')">Sq.Ft</button>
+        <button class="unit-btn" id="btn-sqyd" onclick="setUnit('sqyd')">Sq.Yd</button>
+        <button class="unit-btn" id="btn-gunta" onclick="setUnit('gunta')"
+          data-te="గుంట" data-en="Gunta" data-hi="गुंटा">గుంట</button>
+      </div>
+
+      <div class="form-group">
+        <label id="areaLabel"
+          data-te="బిల్డప్ ఏరియా (Sq.Ft)"
+          data-en="Built-up Area (Sq.Ft)"
+          data-hi="निर्मित क्षेत्र (Sq.Ft)">బిల్డప్ ఏరియా (Sq.Ft)</label>
+        <div class="input-with-tag">
+          <input type="number" id="builtupArea" placeholder="ఉదా: 1200" />
+          <span class="input-tag" id="unitTag">sq.ft</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label data-te="అంతస్తులు" data-en="Floors" data-hi="मंजिल">అంతస్తులు / Floors</label>
+        <div class="number-input">
+          <button onclick="changeFloors(-1)">−</button>
+          <span id="floorsCount">1</span>
+          <button onclick="changeFloors(1)">+</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label data-te="జిల్లా / లొకేషన్" data-en="District / Location" data-hi="जिला / स्थान">జిల్లా / Location</label>
+        <select id="district">
+          <option value="gadwal">Gadwal (Jogulamba)</option>
+          <option value="hyderabad">Hyderabad</option>
+          <option value="warangal">Warangal</option>
+          <option value="nizamabad">Nizamabad</option>
+          <option value="karimnagar">Karimnagar</option>
+          <option value="khammam">Khammam</option>
+          <option value="nalgonda">Nalgonda</option>
+          <option value="mahbubnagar">Mahbubnagar</option>
+          <option value="other_ts">Other Telangana</option>
+          <option value="other">Other State</option>
+        </select>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn-back" onclick="goToStep(1)"
+          data-te="← వెనక్కి" data-en="← Back" data-hi="← वापस">← వెనక్కి</button>
+        <button class="btn-next" onclick="goToStep(3)"
+          data-te="తదుపరి →" data-en="Next →" data-hi="अगला →">తదుపరి →</button>
+      </div>
+    </section>
+
+    <!-- STEP 3 -->
+    <section class="card hidden" id="section-3">
+      <div class="card-header">
+        <span class="step-badge">Step 3</span>
+        <h2 class="card-title" data-te="సదుపాయాలు" data-en="Features & Add-ons" data-hi="सुविधाएं">సదుపాయాలు</h2>
+      </div>
+
+      <div class="features-grid" id="featuresGrid">
+        <label class="feature-item">
+          <input type="checkbox" value="basement" onchange="updateFeatures()"/>
+          <span class="feat-icon">🏚️</span>
+          <span data-te="Basement" data-en="Basement" data-hi="तहखाना">Basement</span>
+        </label>
+        <label class="feature-item">
+          <input type="checkbox" value="lift" onchange="updateFeatures()"/>
+          <span class="feat-icon">🛗</span>
+          <span data-te="Lift" data-en="Lift" data-hi="लिफ्ट">Lift</span>
+        </label>
+        <label class="feature-item">
+          <input type="checkbox" value="solar" onchange="updateFeatures()"/>
+          <span class="feat-icon">☀️</span>
+          <span data-te="Solar" data-en="Solar" data-hi="सोलर">Solar</span>
+        </label>
+        <label class="feature-item">
+          <input type="checkbox" value="rainwater" onchange="updateFeatures()"/>
+          <span class="feat-icon">💧</span>
+          <span data-te="Rain Harvest" data-en="Rain Harvest" data-hi="वर्षा जल">Rain Harvest</span>
+        </label>
+        <label class="feature-item">
+          <input type="checkbox" value="cctv" onchange="updateFeatures()"/>
+          <span class="feat-icon">📷</span>
+          <span data-te="CCTV" data-en="CCTV" data-hi="सीसीटीवी">CCTV</span>
+        </label>
+        <label class="feature-item">
+          <input type="checkbox" value="intercom" onchange="updateFeatures()"/>
+          <span class="feat-icon">📞</span>
+          <span data-te="Intercom" data-en="Intercom" data-hi="इंटरकॉम">Intercom</span>
+        </label>
+        <label class="feature-item">
+          <input type="checkbox" value="vastu" onchange="updateFeatures()"/>
+          <span class="feat-icon">🕉️</span>
+          <span data-te="వాస్తు Design" data-en="Vastu Design" data-hi="वास्तु डिजाइन">వాస్తు Design</span>
+        </label>
+        <label class="feature-item">
+          <input type="checkbox" value="parking" onchange="updateFeatures()"/>
+          <span class="feat-icon">🚗</span>
+          <span data-te="Parking" data-en="Parking" data-hi="पार्किंग">Parking</span>
+        </label>
+      </div>
+
+      <div class="form-group" style="margin-top:16px">
+        <label data-te="అదనపు వివరాలు" data-en="Additional Notes" data-hi="अतिरिक्त विवरण">అదనపు వివరాలు (Optional)</label>
+        <textarea id="extraNotes" rows="3"
+          placeholder="ఏమైనా special requirements ఉంటే చెప్పండి..."></textarea>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn-back" onclick="goToStep(2)"
+          data-te="← వెనక్కి" data-en="← Back" data-hi="← वापस">← వెనక్కి</button>
+        <button class="btn-next" onclick="goToStep(4)"
+          data-te="Estimate చేయి 🔮" data-en="Get Estimate 🔮" data-hi="अनुमान लगाएं 🔮">Estimate చేయి 🔮</button>
+      </div>
+    </section>
+
+    <!-- STEP 4 -->
+    <section class="card hidden" id="section-4">
+      <div class="card-header">
+        <span class="step-badge">Step 4</span>
+        <h2 class="card-title">AI Estimate 🤖</h2>
+      </div>
+
+      <div id="estimateLoading" class="ai-loading">
+        <div class="thinking-dots"><span></span><span></span><span></span></div>
+        <p data-te="Gemini AI లెక్కిస్తోంది... 🧮" data-en="Gemini AI calculating... 🧮" data-hi="Gemini AI गणना कर रहा है... 🧮">Gemini AI లెక్కిస్తోంది... 🧮</p>
+      </div>
+
+      <div id="estimateResult" class="hidden">
+        <div class="result-hero">
+          <p class="result-label" data-te="మొత్తం అంచనా వ్యయం" data-en="Total Estimated Cost" data-hi="कुल अनुमानित लागत">మొత్తం అంచనా వ్యయం</p>
+          <h2 class="result-amount" id="totalCost">₹0</h2>
+          <p class="result-range" id="costRange">₹0 – ₹0</p>
+        </div>
+
+        <div class="breakdown-grid" id="breakdownGrid"></div>
+
+        <div class="ai-advice-box" id="aiAdviceBox">
+          <div class="advice-header">🤖 AI సలహా</div>
+          <div id="aiAdviceText" class="advice-text">లోడ్ అవుతోంది...</div>
+        </div>
+
+        <div class="vastu-box hidden" id="vastuBox">
+          <div class="vastu-header">🕉️ వాస్తు సూచనలు</div>
+          <div id="vastuText"></div>
+        </div>
+
+        <div class="action-buttons">
+          <button class="btn-whatsapp" onclick="shareWhatsApp()"
+            data-te="💬 WhatsApp Share" data-en="💬 WhatsApp Share" data-hi="💬 WhatsApp शेयर">💬 WhatsApp Share</button>
+          <button class="btn-save" onclick="saveEstimate()"
+            data-te="💾 Save చేయి" data-en="💾 Save" data-hi="💾 सेव करें">💾 Save చేయి</button>
+          <button class="btn-new" onclick="newEstimate()"
+            data-te="🔄 New Estimate" data-en="🔄 New Estimate" data-hi="🔄 नया अनुमान">🔄 New Estimate</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" id="savedSection">
+      <h2 class="card-title" data-te="📋 Saved Estimates" data-en="📋 Saved Estimates" data-hi="📋 सेव किए गए अनुमान">📋 Saved Estimates</h2>
+      <div id="savedList" class="saved-list"></div>
+    </section>
+
+    <footer class="footer">
+      <p data-te="నిర్మాణ్ AI • Made for Telugu Contractors 🏗️"
+         data-en="నిర్మాణ్ AI • Made for Indian Contractors 🏗️"
+         data-hi="నిర్మాణ్ AI • भारतीय ठेकेदारों के लिए 🏗️">నిర్మాణ్ AI • Made for Telugu Contractors 🏗️</p>
+    </footer>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
