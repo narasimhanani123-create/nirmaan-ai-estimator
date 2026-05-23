@@ -1,4 +1,4 @@
-const GEMINI_API_KEY = "YOUR_GEMINI_API_KEY";
+const GEMINI_API_KEY = "AIzaSyAVR5kTj5vm8NsQLLkV-uGTIp7bXN2CL3Y";
 let currentLang = localStorage.getItem("appLang") || "te";
 let currentStep = 1;
 let floors = 1;
