@@ -68,6 +68,7 @@ function cycleLang() {
 function updateAppName() {
   const subs = {te:"నిర్మాణ వ్యయ అంచనా",en:"Construction Cost Estimator",hi:"निर्माण लागत अनुमानक"};
   const el = document.querySelector(".app-sub");
+  document.querySelector(".app-title").textContent = "Nirmaan AI";
   if(el) el.textContent = subs[currentLang];
 }
 
