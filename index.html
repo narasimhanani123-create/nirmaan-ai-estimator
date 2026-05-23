@@ -108,7 +108,18 @@
             <span class="grade-name">Luxury</span>
             <span class="grade-price">₹3,200–4,500/sqft</span>
           </div>
-        </div>
+        </div><div class="grade-card" data-value="custom" onclick="selectGrade(this)" style="grid-column: span 2;">
+  <span class="grade-icon">🟠</span>
+  <span class="grade-name">Custom Rate</span>
+  <div style="display:flex;align-items:center;gap:8px;margin-top:6px">
+    <span style="color:var(--accent);font-size:13px">₹</span>
+    <input type="number" id="customRate" placeholder="1800"
+      style="background:var(--bg-primary);border:1px solid var(--accent);border-radius:6px;padding:4px 8px;color:var(--text-primary);font-size:13px;width:100px"
+      onclick="event.stopPropagation()"
+      oninput="selectGrade(this.closest('.grade-card'))"/>
+    <span style="color:var(--text-secondary);font-size:12px">/sqft</span>
+  </div>
+</div>
       </div>
 
       <button class="btn-next" onclick="goToStep(2)"
