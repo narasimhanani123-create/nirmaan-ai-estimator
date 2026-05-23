@@ -1,5 +1,6 @@
 const GEMINI_API_KEY = "AIzaSyAVR5kTj5vm8NsQLLkV-uGTIp7bXN2CL3Y";
-let currentLang = localStorage.getItem("appLang") || "te";
+const _syslang = navigator.language || navigator.userLanguage || "te";
+let currentLang = localStorage.getItem("appLang") || (_syslang.startsWith("hi") ? "hi" : _syslang.startsWith("te") ? "te" : "en");
 let currentStep = 1;
 let floors = 1;
 let currentUnit = "sqft";
